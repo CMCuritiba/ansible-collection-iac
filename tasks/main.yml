@@ -1,0 +1,33 @@
+---
+# tasks file for cmc-servidores
+- name: Set hostname
+  hostname:
+    name: "{{ cmc_server_hostname }}"
+
+- name: Configure alias to admin
+  lineinfile:
+    path: "/etc/aliases"
+    regexp: '^root: suporte'
+    line: 'root: admin'
+  
+- name: Install aptitude using apt
+  apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'vim', 'curl', 'ncdu', 'sudo', 'unattended-upgrades', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools' ]
+
+- name: Configure unattended-upgrades
+  lineinfile:
+    path: "/etc/apt/apt.conf.d/50unattended-upgrades"
+    regexp: '^//Unattended-Upgrade::MinimalSteps'
+    line: 'Unattended-Upgrade::MinimalSteps "true";'
+
+- name: Configure unattended-upgrades
+  lineinfile:
+    path: "/etc/apt/apt.conf.d/50unattended-upgrades"
+    regexp: '^//Unattended-Upgrade::Mail'
+    line: 'Unattended-Upgrade::Mail "root";'
+
+- name: Configure bash aliases
+  copy: src=cmc-aliases.sh dest=/etc/profile.d/cmc-aliases.sh mode=0644

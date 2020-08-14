@@ -1,0 +1,8 @@
+---
+dependencies:
+  - role: ontic.exim
+    exim_config:
+      - { option: 'dc_eximconfig_configtype', value: 'satellite' }
+      - { option: 'dc_other_hostnames', value: '{{ cmc_server_hostname }}.cmc.pr.gov.br' }
+      - { option: 'dc_smarthost', value: 'smtp.cmc.pr.gov.br::587' }
+      - { option: 'dc_hide_mailname', value: 'true' }
