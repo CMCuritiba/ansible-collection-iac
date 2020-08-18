@@ -1,5 +1,5 @@
 ---
-# tasks file for cmc-servidores
+# tasks file for ansible-cmc-servers
 - name: Set hostname
   hostname:
     name: "{{ cmc_server_hostname }}"
@@ -15,7 +15,18 @@
 
 - name: Install required system packages
   apt: name={{ item }} state=latest update_cache=yes
-  loop: [ 'vim', 'curl', 'ncdu', 'sudo', 'unattended-upgrades', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools' ]
+  loop: [ 'vim', 'ntp', 'curl', 'ncdu', 'sudo', 'unattended-upgrades', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools' ]
+
+- name: Configure NTP
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify:
+    - restart ntp
 
 - name: Configure unattended-upgrades
   lineinfile:
