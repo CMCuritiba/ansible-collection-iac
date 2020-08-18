@@ -1,2 +1,6 @@
 ---
-# handlers file for cmc-servidores
+# handlers file for ansible-cmc-servers
+- name: restart ntp
+  service:
+    name: ntp
+    state: restarted

@@ -1,0 +1,13 @@
+# Ansible managed
+
+driftfile /var/lib/ntp/ntp.drift
+
+server  {{ ntp_server1 }} iburst
+server  {{ ntp_server2 }} iburst
+
+# Local users may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+
+# Needed for adding pool entries
+restrict source notrap nomodify noquery
