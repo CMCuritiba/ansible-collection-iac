@@ -9,13 +9,10 @@
     path: "/etc/aliases"
     regexp: '^root: suporte'
     line: 'root: admin'
-  
-- name: Install aptitude using apt
-  apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
 
 - name: Install required system packages
   apt: name={{ item }} state=latest update_cache=yes
-  loop: [ 'vim', 'ntp', 'curl', 'ncdu', 'sudo', 'unattended-upgrades', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools' ]
+  loop: [ 'rsync', 'ntp', 'sudo', 'unattended-upgrades', 'software-properties-common', 'curl', 'vim', 'ncdu', 'iftop', 'nload' ]
 
 - name: Configure NTP
   template:
@@ -41,4 +38,13 @@
     line: 'Unattended-Upgrade::Mail "root";'
 
 - name: Configure bash aliases
-  copy: src=cmc-aliases.sh dest=/etc/profile.d/cmc-aliases.sh mode=0644
+  copy:
+    src: cmc-aliases.sh
+    dest: /etc/profile.d/cmc-aliases.sh
+    mode: 0644
+
+- name: Configure command history
+  lineinfile:
+    path: /etc/bash.bashrc
+    state: present
+    line: "export HISTTIMEFORMAT=\"%F %T \""

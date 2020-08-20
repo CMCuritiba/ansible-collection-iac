@@ -1,7 +1,14 @@
 ansible-cmc-servers
-=========
+===================
 
 Role para configurar servidores debian para o ambiente produtivo da CMC.
+
+Serviços/pacotes inclusos:
+1. sudo
+1. NTP
+1. exim4 (MTA)
+1. unattended-upgrades
+1. rsync
 
 Requirements
 ------------
@@ -12,8 +19,14 @@ Nenhum.
 Role Variables
 --------------
 
-Descrição das variáveis que devem ser passadas para esta role:
+Descrição das variáveis que devem ser passadas para esta role.
+
+Obrigatórias:
 - `cmc_server_hostname`: nome do servidor (sem o domínio).
+
+Opcionais:
+- `ntp_server1`: Primeiro servidor NTP
+- `ntp_server2`: Segundo servidor NTP
 <!-- A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well. -->
 
 Dependencies
@@ -30,10 +43,11 @@ Example Playbook
 Exemplo de playbook:
 
 ```yaml
-    - hosts: servers
-      roles:
-         - role: ansible-cmc-servers
-           cmc_server_hostname: tauari
+---
+- hosts: servidores
+  roles:
+    - role: ansible-cmc-servers
+      cmc_server_hostname: tauari
 ```
 
 License
@@ -45,5 +59,6 @@ Author Information
 ------------------
 
 [Divisão de Arquitetura de Serviços](mailto:admin@cmc.pr.gov.br)
+
 [Câmara Municipal de Curitiba](https://cmc.pr.gov.br)
 <!-- An optional section for the role authors to include contact information, or a website (HTML is not allowed). -->
