@@ -33,6 +33,12 @@
     name: SSH
     src: 10.0.0.0/23
 
+- name: Allow SSH from VPN
+  ufw:
+    rule: allow
+    name: SSH
+    src: 10.212.134.100/24
+
 - name: Configure default Firewall rule
   ufw:
     state: enabled
