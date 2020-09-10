@@ -13,7 +13,7 @@
 - name: Install required system packages
   apt: name={{ item }} state=latest update_cache=yes
   loop: [ 'rsync', 'ntp', 'sudo', 'unattended-upgrades', 'software-properties-common', 'curl', 'vim', 'ncdu', 'iftop', 'nload' ]
-
+  
 - name: Configure NTP
   template:
     src: ntp.conf.j2
@@ -34,7 +34,7 @@
 - name: Configure unattended-upgrades
   lineinfile:
     path: "/etc/apt/apt.conf.d/50unattended-upgrades"
-    regexp: '^//Unattended-Upgrade::Mail'
+    regexp: '^//Unattended-Upgrade::Mail\b'
     line: 'Unattended-Upgrade::Mail "root";'
 
 - name: Configure bash aliases
