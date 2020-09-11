@@ -10,6 +10,36 @@
     regexp: '^root: suporte'
     line: 'root: admin'
 
+- name: Configure mail domain
+  lineinfile:
+    path: /etc/mailname
+    state: present
+    line: "cmc.pr.gov.br"
+
+- name: Configure resolv.conf domain
+  lineinfile:
+    path: /etc/resolv.conf
+    state: present
+    line: "domain cmc.pr.gov.br"
+
+- name: Configure resolv.conf domain search
+  lineinfile:
+    path: /etc/resolv.conf
+    state: present
+    line: "search cmc.pr.gov.br"
+
+- name: Ensure template IP and name are removed from hosts file
+  lineinfile:
+    path: /etc/hosts
+    state: absent
+    regexp: '^10\.0\.0\.254'
+
+- name: Ensure hosts is right
+  lineinfile:
+    path: /etc/hosts
+    state: present
+    line: "{{ ansible_default_ipv4.address }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
+
 - name: Install required system packages
   apt:
     name:
