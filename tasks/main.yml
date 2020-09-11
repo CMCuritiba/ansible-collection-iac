@@ -4,16 +4,47 @@
   hostname:
     name: "{{ cmc_server_hostname }}"
 
-- name: Configure alias to admin
+- name: Configure email alias from root to admin
   lineinfile:
     path: "/etc/aliases"
     regexp: '^root: suporte'
     line: 'root: admin'
 
 - name: Install required system packages
-  apt: name={{ item }} state=latest update_cache=yes
-  loop: [ 'rsync', 'ntp', 'sudo', 'unattended-upgrades', 'software-properties-common', 'curl', 'vim', 'ncdu', 'iftop', 'nload' ]
-  
+  apt:
+    name:
+      - ufw
+      - rsync
+      - ntp
+      - sudo
+      - unattended-upgrades
+      - software-properties-common
+      - curl
+      - vim
+      - ncdu
+      - iftop
+      - nload
+    state: latest
+    update_cache: yes
+
+- name: Allow SSH on Firewall
+  ufw:
+    rule: allow
+    name: SSH
+    src: 10.0.0.0/23
+
+- name: Allow SSH from VPN
+  ufw:
+    rule: allow
+    name: SSH
+    src: 10.212.134.100/24
+
+- name: Configure default Firewall rule
+  ufw:
+    state: enabled
+    default: reject
+    direction: incoming
+
 - name: Configure NTP
   template:
     src: ntp.conf.j2
@@ -37,7 +68,7 @@
     regexp: '^//Unattended-Upgrade::Mail\b'
     line: 'Unattended-Upgrade::Mail "root";'
 
-- name: Configure bash aliases
+- name: Configure bash aliases commands
   copy:
     src: cmc-aliases.sh
     dest: /etc/profile.d/cmc-aliases.sh

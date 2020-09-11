@@ -9,6 +9,10 @@ Serviços/pacotes inclusos:
 1. exim4 (MTA)
 1. unattended-upgrades
 1. rsync
+1. ufw (permite inicialmente apenas SSH da rede DTIC)
+   **OBS**: aparentemente não é necessário liberar as portas dos serviços
+   disponibilizados em containers, o docker já gerencia as portas via
+   `iptables`.
 
 Requirements
 ------------
