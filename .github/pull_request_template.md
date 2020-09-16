@@ -13,7 +13,8 @@ See also: #
 - [ ] I ran this code locally
 - [ ] I wrote the necessary tests
 - [ ] I covered my code with type-hints
-- [ ] I updated CHANGELOG
+- [ ] I didn't hard code
+- [ ] I reviewed CHANGELOG/README
 
 **Resources**
 
