@@ -2,7 +2,7 @@
 # tasks file for ansible-cmc-servers
 - name: Set hostname
   hostname:
-    name: "{{ cmc_server_hostname }}"
+    name: "{{ cmc_server_hostname | mandatory }}" # type: string
 
 - name: Configure email alias from root to admin
   lineinfile:
@@ -32,7 +32,8 @@
   lineinfile:
     path: /etc/hosts
     state: absent
-    regexp: '^10\.0\.0\.254'
+    regexp: "{{ cmc_template_ip }}"  # type: regex string
+  when: cmc_template_ip is defined
 
 - name: Ensure hosts is right
   lineinfile:
@@ -61,13 +62,14 @@
   ufw:
     rule: allow
     name: SSH
-    src: 10.0.0.0/23
+    src: "{{ cmc_dtic_network | mandatory }}" # type: IPv4 address block
 
 - name: Allow SSH from VPN
   ufw:
     rule: allow
     name: SSH
-    src: 10.212.134.100/24
+    src: "{{ cmc_dtic_vpn_network }}" # type: IPv4 address block
+  when: cmc_dtic_vpn_network is defined
 
 - name: Configure default Firewall rule
   ufw:
@@ -83,6 +85,7 @@
     group: root
     mode: 0644
     backup: yes
+  # when: cmc_ntp_servers is defined # type: IPv4 address list
   notify:
     - restart ntp
 

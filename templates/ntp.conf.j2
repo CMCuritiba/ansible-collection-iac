@@ -2,8 +2,9 @@
 
 driftfile /var/lib/ntp/ntp.drift
 
-server  {{ ntp_server1 }} iburst
-server  {{ ntp_server2 }} iburst
+{% for ntp_server in cmc_ntp_servers %}
+server  {{ ntp_server }} iburst
+{% endfor %}
 
 # Local users may interrogate the ntp server more closely.
 restrict 127.0.0.1
