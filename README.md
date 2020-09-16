@@ -28,7 +28,7 @@ Descrição das variáveis que devem ser passadas para esta role.
 Obrigatórias:
 - `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
-- `cmc_ntp_servers`: lista de servidores NTP (lista de IPv4s)
+- `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
 
 Opcionais:
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
@@ -60,7 +60,7 @@ Exemplo de playbook:
       cmc_template_ip: '^192\.168\.0\.1'
       cmc_ntp_servers:
         - 192.168.0.4
-        - 192.168.0.5
+        - a.ntp.br
 ```
 
 License

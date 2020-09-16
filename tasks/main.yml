@@ -85,7 +85,7 @@
     group: root
     mode: 0644
     backup: yes
-  # when: cmc_ntp_servers is defined # type: IPv4 address list
+  # when: cmc_ntp_servers is defined # type: FQDN and IPv4 address list
   notify:
     - restart ntp
 

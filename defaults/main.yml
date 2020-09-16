@@ -1,4 +1,2 @@
 ---
 # defaults file for ansible-cmc-servers
-ntp_server1: ntp1.cmc.pr.gov.br 
-ntp_server2: ntp2.cmc.pr.gov.br
