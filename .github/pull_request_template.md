@@ -1,4 +1,4 @@
-**Merge request description**
+# Merge request description
 
 - What is new?
   - Implemented...
@@ -8,7 +8,7 @@
 Resolves: #
 See also: #
 
-**Checklist**
+## Checklist
 
 - [ ] I ran this code locally
 - [ ] I wrote the necessary tests
@@ -16,11 +16,11 @@ See also: #
 - [ ] I didn't hard code
 - [ ] I reviewed CHANGELOG/README
 
-**Resources**
+## Resources
 
 Link to any external resource used (issue, project, website, etc)
 
-**Should know about**
+## Should know about
 
 - Is there anything else that should be known?
 - Any deployment notes?

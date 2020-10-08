@@ -83,7 +83,7 @@
     dest: /etc/ntp.conf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
     backup: yes
   # when: cmc_ntp_servers is defined # type: FQDN and IPv4 address list
   notify:
@@ -105,7 +105,7 @@
   copy:
     src: cmc-aliases.sh
     dest: /etc/profile.d/cmc-aliases.sh
-    mode: 0644
+    mode: '0644'
 
 - name: Configure command history
   lineinfile:

@@ -4,6 +4,7 @@ ansible-cmc-servers
 Role para configurar servidores debian para o ambiente produtivo da CMC.
 
 Serviços/pacotes inclusos:
+
 1. sudo
 1. NTP
 1. exim4 (MTA)
@@ -26,11 +27,13 @@ Role Variables
 Descrição das variáveis que devem ser passadas para esta role.
 
 Obrigatórias:
+
 - `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
 - `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
 
 Opcionais:
+
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
 
@@ -40,6 +43,7 @@ Dependencies
 ------------
 
 Roles:
+
 - [ontic.exim](https://galaxy.ansible.com/ontic/exim)
 <!-- A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles. -->
 
