@@ -3,7 +3,7 @@ ansible-cmc-servers
 
 Role para configurar servidores debian para o ambiente produtivo da CMC.
 
-Serviços/pacotes inclusos:
+Serviços inclusos:
 
 1. sudo
 1. NTP
@@ -18,7 +18,13 @@ Serviços/pacotes inclusos:
 Requirements
 ------------
 
-Nenhum.
+1. Ter o `ansible_host` definido no arquivo de inventário:
+
+   ```ini
+   [server1_group]
+   server1 ansible_host=111.222.333.444
+   ```
+
 <!-- Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required. -->
 
 Role Variables
@@ -36,6 +42,7 @@ Opcionais:
 
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
+- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado. O _default_ é `false`.
 
 <!-- A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well. -->
 
@@ -65,6 +72,7 @@ Exemplo de playbook:
       cmc_ntp_servers:
         - 192.168.0.4
         - a.ntp.br
+      cmc_install_docker: true
 ```
 
 License

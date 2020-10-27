@@ -39,24 +39,48 @@
   lineinfile:
     path: /etc/hosts
     state: present
-    line: "{{ ansible_default_ipv4.address }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
+    line: "{{ ansible_host }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
 
 - name: Install required system packages
   apt:
     name:
-      - ufw
-      - rsync
-      - ntp
-      - sudo
-      - unattended-upgrades
-      - software-properties-common
       - curl
-      - vim
-      - ncdu
       - iftop
+      - gpg
+      - ncdu
       - nload
+      - ntp
+      - rsync
+      - software-properties-common
+      - sudo
+      - ufw
+      - unattended-upgrades
+      - vim
     state: latest
     update_cache: yes
+
+- name: Install docker required system packages
+  apt:
+    name:
+      - 'python3-pip'
+      - 'virtualenv'
+      - 'python3-setuptools'
+    state: latest
+    update_cache: yes
+  when: cmc_install_docker == true
+
+- name: Install docker
+  apt:
+    name:
+      - 'docker.io'
+    state: latest
+    update_cache: yes
+  when: cmc_install_docker == true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+  when: cmc_install_docker == true
 
 - name: Allow SSH on Firewall
   ufw:

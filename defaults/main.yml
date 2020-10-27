@@ -1,2 +1,3 @@
 ---
 # defaults file for ansible-cmc-servers
+cmc_install_docker: false
