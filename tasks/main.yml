@@ -16,6 +16,12 @@
     state: present
     line: "cmc.pr.gov.br"
 
+- name: Configure system's email address
+  lineinfile:
+    path: /etc/email-addresses
+    state: present
+    line: "root: no-reply@cmc.pr.gov.br"
+
 - name: Configure resolv.conf domain
   lineinfile:
     path: /etc/resolv.conf
