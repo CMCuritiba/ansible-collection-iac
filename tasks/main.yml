@@ -1,5 +1,7 @@
 ---
 # tasks file for ansible-cmc-servers
+- include: ldap.yml
+
 - name: Set hostname
   hostname:
     name: "{{ cmc_server_hostname | mandatory }}" # type: string
@@ -7,8 +9,8 @@
 - name: Configure email alias from root to admin
   lineinfile:
     path: "/etc/aliases"
-    regexp: '^root: suporte'
-    line: 'root: admin'
+    regexp: "^root: suporte"
+    line: "root: admin"
 
 - name: Configure mail domain
   lineinfile:
@@ -38,7 +40,7 @@
   lineinfile:
     path: /etc/hosts
     state: absent
-    regexp: "{{ cmc_template_ip }}"  # type: regex string
+    regexp: "{{ cmc_template_ip }}" # type: regex string
   when: cmc_template_ip is defined
 
 - name: Ensure hosts is right
@@ -50,6 +52,7 @@
 - name: Install required system packages
   apt:
     name:
+      - acct
       - curl
       - iftop
       - gpg
@@ -64,23 +67,26 @@
       - vim
     state: latest
     update_cache: yes
+    cache_valid_time: 86400
 
 - name: Install docker required system packages
   apt:
     name:
-      - 'python3-pip'
-      - 'virtualenv'
-      - 'python3-setuptools'
+      - "python3-pip"
+      - "virtualenv"
+      - "python3-setuptools"
     state: latest
     update_cache: yes
+    cache_valid_time: 86400
   when: cmc_install_docker == true
 
 - name: Install docker
   apt:
     name:
-      - 'docker.io'
+      - "docker.io"
     state: latest
     update_cache: yes
+    cache_valid_time: 86400
   when: cmc_install_docker == true
 
 - name: Install Docker Module for Python
@@ -113,7 +119,7 @@
     dest: /etc/ntp.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
     backup: yes
   # when: cmc_ntp_servers is defined # type: FQDN and IPv4 address list
   notify:
@@ -122,7 +128,7 @@
 - name: Configure unattended-upgrades
   lineinfile:
     path: "/etc/apt/apt.conf.d/50unattended-upgrades"
-    regexp: '^//Unattended-Upgrade::MinimalSteps'
+    regexp: "^//Unattended-Upgrade::MinimalSteps"
     line: 'Unattended-Upgrade::MinimalSteps "true";'
 
 - name: Configure unattended-upgrades
@@ -135,10 +141,10 @@
   copy:
     src: cmc-aliases.sh
     dest: /etc/profile.d/cmc-aliases.sh
-    mode: '0644'
+    mode: "0644"
 
 - name: Configure command history
   lineinfile:
     path: /etc/bash.bashrc
     state: present
-    line: "export HISTTIMEFORMAT=\"%F %T \""
+    line: 'export HISTTIMEFORMAT="%F %T "'

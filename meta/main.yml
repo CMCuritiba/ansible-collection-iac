@@ -6,3 +6,16 @@ dependencies:
       - { option: 'dc_other_hostnames', value: '{{ cmc_server_hostname }}.cmc.pr.gov.br' }
       - { option: 'dc_smarthost', value: 'smtp.cmc.pr.gov.br::587' }
       - { option: 'dc_hide_mailname', value: 'true' }
+
+  - role: andrewrothstein.nss-pam-ldap-configure
+    nss_pam_ldap_uri: ["ldaps://10.0.0.5/"]
+    nss_pam_ldap_dn: "dc=pr,dc=gov,dc=br"
+    nss_pam_ldap_binddn: "cn=authproxy,{{ nss_pam_ldap_dn }}"
+    nss_pam_ldap_bindpw: "{{ cmc_ldap_bindpw }}"  # type: password string
+    nss_pam_ldap_custom_lookups:
+      - db: base
+        ty: passwd
+        target: "ou=Usuarios,{{ nss_pam_ldap_dn }}"
+      - db: base
+        ty: group
+        target: "ou=Grupos,{{ nss_pam_ldap_dn }}"

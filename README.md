@@ -1,11 +1,10 @@
-ansible-cmc-servers
-===================
+# ansible-cmc-servers
 
 Role para configurar servidores debian para o ambiente produtivo da CMC.
 
 Serviços inclusos:
 
-1. sudo
+1. AAA (LDAP + sudo + acct)
 1. NTP
 1. exim4 (MTA)
 1. unattended-upgrades
@@ -15,8 +14,7 @@ Serviços inclusos:
    disponibilizados em containers, o docker já gerencia as portas via
    `iptables`.
 
-Requirements
-------------
+## Requirements
 
 1. Ter o `ansible_host` definido no arquivo de inventário:
 
@@ -27,8 +25,7 @@ Requirements
 
 <!-- Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required. -->
 
-Role Variables
---------------
+## Role Variables
 
 Descrição das variáveis que devem ser passadas para esta role.
 
@@ -37,6 +34,7 @@ Obrigatórias:
 - `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
 - `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
+- `cmc_ldap_bindpw`: senha para bind no LDAP (vide [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
 
 Opcionais:
 
@@ -46,18 +44,19 @@ Opcionais:
 
 <!-- A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well. -->
 
-Dependencies
-------------
+## Dependencies
 
 Roles:
 
 - [ontic.exim](https://galaxy.ansible.com/ontic/exim)
+- [nss-pam-ldap-configure](https://galaxy.ansible.com/andrewrothstein/nss-pam-ldap-configure)
+
 <!-- A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles. -->
 
-Example Playbook
-----------------
+## Example Playbook
 
 <!-- Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too: -->
+
 Exemplo de playbook:
 
 ```yaml
@@ -72,18 +71,18 @@ Exemplo de playbook:
       cmc_ntp_servers:
         - 192.168.0.4
         - a.ntp.br
+      cmc_ldap_bindpw: senha
       cmc_install_docker: true
 ```
 
-License
--------
+## License
 
 BSD
 
-Author Information
-------------------
+## Author Information
 
 [Divisão de Arquitetura de Serviços](mailto:arquitetura-ti@cmc.pr.gov.br)
 
 [Câmara Municipal de Curitiba](https://cmc.pr.gov.br)
+
 <!-- An optional section for the role authors to include contact information, or a website (HTML is not allowed). -->

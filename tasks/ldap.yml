@@ -1,0 +1,28 @@
+---
+- name: Restrict users
+  lineinfile:
+    path: /etc/nslcd.conf
+    state: present
+    line: "filter passwd (&(memberOf=cn=sudoers,ou=Grupos,dc=pr,dc=gov,dc=br)(objectClass=posixAccount))"
+  notify:
+    - restart nslcd
+
+- name: Disable certificate checking
+  lineinfile:
+    path: /etc/nslcd.conf
+    state: present
+    line: "tls_reqcert never"
+  notify:
+    - restart nslcd
+
+- name: Create users home directory
+  lineinfile:
+    path: /etc/pam.d/ldap
+    state: present
+    line: "session optional pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
+- name: Configure sudo
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: "%dtic.arquitetura ALL = ALL, !/usr/bin/su"
