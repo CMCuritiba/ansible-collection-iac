@@ -8,10 +8,10 @@ dependencies:
       - { option: 'dc_hide_mailname', value: 'true' }
 
   - role: andrewrothstein.nss-pam-ldap-configure
-    nss_pam_ldap_uri: ["ldaps://10.0.0.5/"]
+    nss_pam_ldap_uri: ["ldaps://{{ cmc_ldap_server }}/"] # type: IPv4, hostname or FQDN string
     nss_pam_ldap_dn: "dc=pr,dc=gov,dc=br"
-    nss_pam_ldap_binddn: "cn=authproxy,{{ nss_pam_ldap_dn }}"
-    nss_pam_ldap_bindpw: "{{ cmc_ldap_bindpw }}"  # type: password string
+    nss_pam_ldap_binddn: "cn={{ cmc_ldap_binddn }},{{ nss_pam_ldap_dn }}" # type: username string
+    nss_pam_ldap_bindpw: "{{ cmc_ldap_bindpw }}" # type: password string
     nss_pam_ldap_custom_lookups:
       - db: base
         ty: passwd

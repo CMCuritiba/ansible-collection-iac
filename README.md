@@ -34,6 +34,8 @@ Obrigatórias:
 - `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
 - `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
+- `cmc_ldap_server`: servidor LDAP (hostname, FQDN ou IPv4)
+- `cmc_ldap_binddn`: usuário para bind no LDAP
 - `cmc_ldap_bindpw`: senha para bind no LDAP (vide [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
 
 Opcionais:
