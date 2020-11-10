@@ -34,15 +34,17 @@ Obrigatórias:
 - `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
 - `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
-- `cmc_ldap_server`: servidor LDAP (hostname, FQDN ou IPv4)
-- `cmc_ldap_binddn`: usuário para bind no LDAP
 - `cmc_ldap_bindpw`: senha para bind no LDAP (vide [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
 
 Opcionais:
 
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
-- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado. O _default_ é `false`.
+- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o _default_ é `false`
+- `cmc_smtp_server`: servidor SMTP (FQDN ou IPv4)
+- `cmc_ldap_server`: servidor LDAP (hostname, FQDN ou IPv4)
+- `cmc_ldap_dn`: raiz da árvore de diretórios
+- `cmc_ldap_binddn`: usuário para bind no LDAP
 
 <!-- A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well. -->
 

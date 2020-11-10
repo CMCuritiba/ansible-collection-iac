@@ -1,3 +1,7 @@
 ---
 # defaults file for ansible-cmc-servers
 cmc_install_docker: false
+cmc_smtp_server: "smtp.cmc.pr.gov.br"
+cmc_ldap_server: "10.0.0.5"
+cmc_ldap_dn: "dc=pr,dc=gov,dc=br"
+cmc_ldap_binddn: "authproxy"

@@ -1,9 +1,9 @@
 ---
-- name: Restrict users
+- name: Restrict SSH user groups
   lineinfile:
-    path: /etc/nslcd.conf
+    path: /etc/ssh/sshd_config
     state: present
-    line: "filter passwd (&(memberOf=cn=sudoers,ou=Grupos,dc=pr,dc=gov,dc=br)(objectClass=posixAccount))"
+    line: "AllowGroups {{ cmc_ssh_user_groups }}" # type: space separated LDAP groups string
   notify:
     - restart nslcd
 
@@ -17,12 +17,15 @@
 
 - name: Create users home directory
   lineinfile:
-    path: /etc/pam.d/ldap
+    path: /etc/pam.d/common-session
     state: present
-    line: "session optional pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+    insertbefore: "pam_unix\\.so"
+    line: "session required pam_mkhomedir.so skel=/etc/skel/ umask=0022"
 
 - name: Configure sudo
-  lineinfile:
-    path: /etc/sudoers
-    state: present
-    line: "%dtic.arquitetura ALL = ALL, !/usr/bin/su"
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/cmc
+    owner: root
+    group: root
+    mode: "0440"
