@@ -4,3 +4,8 @@
   service:
     name: ntp
     state: restarted
+
+- name: restart nslcd
+  service:
+    name: nslcd
+    state: restarted

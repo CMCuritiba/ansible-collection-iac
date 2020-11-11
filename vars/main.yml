@@ -1,2 +1,5 @@
 ---
 # vars file for ansible-cmc-servers
+cmc_ssh_user_groups: "root dtic"
+cmc_sudoers_groups:
+  - "dtic.arquitetura"
