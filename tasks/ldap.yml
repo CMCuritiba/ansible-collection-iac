@@ -1,0 +1,31 @@
+---
+- name: Restrict SSH user groups
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    line: "AllowGroups {{ cmc_ssh_user_groups }}" # type: space separated LDAP groups string
+  notify:
+    - restart nslcd
+
+- name: Disable certificate checking
+  lineinfile:
+    path: /etc/nslcd.conf
+    state: present
+    line: "tls_reqcert never"
+  notify:
+    - restart nslcd
+
+- name: Create users home directory
+  lineinfile:
+    path: /etc/pam.d/common-session
+    state: present
+    insertbefore: "pam_unix\\.so"
+    line: "session required pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
+- name: Configure sudo
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/cmc
+    owner: root
+    group: root
+    mode: "0440"

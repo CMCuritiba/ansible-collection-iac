@@ -1,5 +1,7 @@
 ---
 # tasks file for ansible-cmc-servers
+- include: ldap.yml
+
 - name: Set hostname
   hostname:
     name: "{{ cmc_server_hostname | mandatory }}" # type: string
@@ -7,14 +9,26 @@
 - name: Configure email alias from root to admin
   lineinfile:
     path: "/etc/aliases"
-    regexp: '^root: suporte'
-    line: 'root: admin'
+    regexp: "^root: suporte"
+    line: "root: admin"
+
+- name: Ensure empty sudo group
+  lineinfile:
+    path: "/etc/group"
+    regexp: "^sudo:x:27:.+"
+    line: "sudo:x:27:"
 
 - name: Configure mail domain
   lineinfile:
     path: /etc/mailname
     state: present
     line: "cmc.pr.gov.br"
+
+- name: Configure system's email address
+  lineinfile:
+    path: /etc/email-addresses
+    state: present
+    line: "root: no-reply@cmc.pr.gov.br"
 
 - name: Configure resolv.conf domain
   lineinfile:
@@ -32,31 +46,59 @@
   lineinfile:
     path: /etc/hosts
     state: absent
-    regexp: "{{ cmc_template_ip }}"  # type: regex string
+    regexp: "{{ cmc_template_ip }}" # type: regex string
   when: cmc_template_ip is defined
 
 - name: Ensure hosts is right
   lineinfile:
     path: /etc/hosts
     state: present
-    line: "{{ ansible_default_ipv4.address }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
+    line: "{{ ansible_host }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
 
 - name: Install required system packages
   apt:
     name:
-      - ufw
-      - rsync
-      - ntp
-      - sudo
-      - unattended-upgrades
-      - software-properties-common
+      - acct
       - curl
-      - vim
-      - ncdu
       - iftop
+      - gpg
+      - ncdu
       - nload
+      - ntp
+      - rsync
+      - software-properties-common
+      - sudo
+      - ufw
+      - unattended-upgrades
+      - vim
     state: latest
     update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install docker required system packages
+  apt:
+    name:
+      - "python3-pip"
+      - "virtualenv"
+      - "python3-setuptools"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+  when: cmc_install_docker == true
+
+- name: Install docker
+  apt:
+    name:
+      - "docker.io"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+  when: cmc_install_docker == true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+  when: cmc_install_docker == true
 
 - name: Allow SSH on Firewall
   ufw:
@@ -83,32 +125,34 @@
     dest: /etc/ntp.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
     backup: yes
   # when: cmc_ntp_servers is defined # type: FQDN and IPv4 address list
   notify:
     - restart ntp
 
-- name: Configure unattended-upgrades
+- name: Configure unattended-upgrades steps
   lineinfile:
     path: "/etc/apt/apt.conf.d/50unattended-upgrades"
-    regexp: '^//Unattended-Upgrade::MinimalSteps'
+    regexp: "^//Unattended-Upgrade::MinimalSteps"
     line: 'Unattended-Upgrade::MinimalSteps "true";'
 
-- name: Configure unattended-upgrades
+- name: Configure unattended-upgrades mail
   lineinfile:
     path: "/etc/apt/apt.conf.d/50unattended-upgrades"
-    regexp: '^//Unattended-Upgrade::Mail\b'
+    regexp: "^//Unattended-Upgrade::Mail\b"
     line: 'Unattended-Upgrade::Mail "root";'
 
 - name: Configure bash aliases commands
   copy:
     src: cmc-aliases.sh
     dest: /etc/profile.d/cmc-aliases.sh
-    mode: '0644'
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Configure command history
   lineinfile:
     path: /etc/bash.bashrc
     state: present
-    line: "export HISTTIMEFORMAT=\"%F %T \""
+    line: 'export HISTTIMEFORMAT="%F %T "'
