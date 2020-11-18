@@ -65,6 +65,7 @@
       - ncdu
       - nload
       - ntp
+      - parted
       - rsync
       - software-properties-common
       - sudo
