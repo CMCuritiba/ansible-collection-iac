@@ -1,34 +1,11 @@
 ---
 # tasks file for ansible-cmc-servers
-- include: ldap.yml
+- include: mail.yml
+  when: cmc_configure_mail == true
 
 - name: Set hostname
   hostname:
     name: "{{ cmc_server_hostname | mandatory }}" # type: string
-
-- name: Configure email alias from root to admin
-  lineinfile:
-    path: "/etc/aliases"
-    regexp: "^root: suporte"
-    line: "root: admin"
-
-- name: Ensure empty sudo group
-  lineinfile:
-    path: "/etc/group"
-    regexp: "^sudo:x:27:.+"
-    line: "sudo:x:27:"
-
-- name: Configure mail domain
-  lineinfile:
-    path: /etc/mailname
-    state: present
-    line: "cmc.pr.gov.br"
-
-- name: Configure system's email address
-  lineinfile:
-    path: /etc/email-addresses
-    state: present
-    line: "root: no-reply@cmc.pr.gov.br"
 
 - name: Configure resolv.conf domain
   lineinfile:
@@ -53,7 +30,7 @@
   lineinfile:
     path: /etc/hosts
     state: present
-    line: "{{ ansible_host }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
+    line: "{{ ansible_default_ipv4.address }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
 
 - name: Install required system packages
   apt:
@@ -76,29 +53,16 @@
     update_cache: yes
     cache_valid_time: 86400
 
-- name: Install docker required system packages
-  apt:
-    name:
-      - "python3-pip"
-      - "virtualenv"
-      - "python3-setuptools"
-    state: latest
-    update_cache: yes
-    cache_valid_time: 86400
-  when: cmc_install_docker == true
+- name: Ensure empty sudo group
+  lineinfile:
+    path: "/etc/group"
+    regexp: "^sudo:x:27:.+"
+    line: "sudo:x:27:"
 
-- name: Install docker
-  apt:
-    name:
-      - "docker.io"
-    state: latest
-    update_cache: yes
-    cache_valid_time: 86400
-  when: cmc_install_docker == true
+- include: ldap.yml
+  when: cmc_configure_ldap == true
 
-- name: Install Docker Module for Python
-  pip:
-    name: docker
+- include: docker.yml
   when: cmc_install_docker == true
 
 - name: Allow SSH on Firewall

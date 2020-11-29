@@ -1,0 +1,24 @@
+---
+- name: Make sure user suporte is not in the aliases
+  lineinfile:
+    path: "/etc/aliases"
+    state: absent
+    regexp: "^root: suporte"
+
+- name: Configure email alias from root to admin
+  lineinfile:
+    path: "/etc/aliases"
+    state: present
+    line: "root: admin"
+
+- name: Configure mail domain
+  lineinfile:
+    path: /etc/mailname
+    state: present
+    line: "cmc.pr.gov.br"
+
+- name: Configure system's email address
+  lineinfile:
+    path: /etc/email-addresses
+    state: present
+    line: "root: no-reply@cmc.pr.gov.br"
