@@ -16,12 +16,7 @@ Serviços inclusos:
 
 ## Requirements
 
-1. Ter o `ansible_host` definido no arquivo de inventário:
-
-   ```ini
-   [server1_group]
-   server1 ansible_host=111.222.333.444
-   ```
+Nenhum.
 
 <!-- Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required. -->
 
@@ -38,9 +33,11 @@ Obrigatórias:
 
 Opcionais:
 
+- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o _default_ é `false`
+- `cmc_configure_mail`: `boolean` indicando se o envio de e-mails deve ser configurado, o _default_ é `true`
+- `cmc_configure_ldap`: `boolean` indicando se a autenticação via LDAP deve ser configurada, o _default_ é `true`
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
-- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o _default_ é `false`
 - `cmc_smtp_server`: servidor SMTP (FQDN ou IPv4)
 - `cmc_ldap_server`: servidor LDAP (hostname, FQDN ou IPv4)
 - `cmc_ldap_dn`: raiz da árvore de diretórios

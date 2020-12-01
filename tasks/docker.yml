@@ -1,0 +1,22 @@
+---
+- name: Install docker required system packages
+  apt:
+    name:
+      - "python3-pip"
+      - "virtualenv"
+      - "python3-setuptools"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install docker
+  apt:
+    name:
+      - "docker.io"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker

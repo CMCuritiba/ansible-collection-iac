@@ -1,4 +1,22 @@
 ---
+# meta file for ansible-cmc-servers
+galaxy_info:
+  role_name: ansible-cmc-servers
+  author: Bruno S. Oliveira
+  company: "Câmara Municipal de Curitiba"
+  description: Set up a production server in Debian systems
+  license: MIT
+  min_ansible_version: 2.10.1
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+  galaxy_tags:
+    - system
+    - ldap
+    - mail
+    - docker
 dependencies:
   - role: ontic.exim
     exim_config:
@@ -6,6 +24,7 @@ dependencies:
       - { option: 'dc_other_hostnames', value: '{{ cmc_server_hostname }}.cmc.pr.gov.br' }
       - { option: 'dc_smarthost', value: '{{ cmc_smtp_server }}::587' }
       - { option: 'dc_hide_mailname', value: 'true' }
+    when: cmc_configure_mail == true
 
   - role: andrewrothstein.nss-pam-ldap-configure
     nss_pam_ldap_uri: ["ldaps://{{ cmc_ldap_server }}/"] # type: IPv4, hostname or FQDN string
@@ -19,3 +38,4 @@ dependencies:
       - db: base
         ty: group
         target: "ou=Grupos,{{ nss_pam_ldap_dn }}"
+    when: cmc_configure_ldap == true

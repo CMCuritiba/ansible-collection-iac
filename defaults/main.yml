@@ -5,3 +5,6 @@ cmc_smtp_server: "smtp.cmc.pr.gov.br"
 cmc_ldap_server: "10.0.0.5"
 cmc_ldap_dn: "dc=pr,dc=gov,dc=br"
 cmc_ldap_binddn: "authproxy"
+cmc_template_ip: '^10\.0\.0\.254'
+cmc_configure_mail: true
+cmc_configure_ldap: true
