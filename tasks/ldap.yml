@@ -2,7 +2,7 @@
 - name: Restrict SSH user groups
   lineinfile:
     path: /etc/ssh/sshd_config
-    state: present
+    regexp: "^AllowGroups"
     line: "AllowGroups {{ cmc_ssh_user_groups }}" # type: space separated LDAP groups string
   notify:
     - restart ssh

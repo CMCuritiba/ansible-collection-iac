@@ -65,6 +65,14 @@
 - include: docker.yml
   when: cmc_install_docker == true
 
+- name: Disable root SSH access
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin *(?!no)"
+    line: "PermitRootLogin no"
+  notify:
+    - restart ssh
+
 - name: Allow SSH on Firewall
   ufw:
     rule: allow
