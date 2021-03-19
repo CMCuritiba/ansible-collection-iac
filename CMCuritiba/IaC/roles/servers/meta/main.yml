@@ -25,11 +25,11 @@ dependencies:
       - { option: 'dc_other_hostnames', value: '{{ inventory_hostname_short }}.cmc.pr.gov.br' }
       - { option: 'dc_smarthost', value: '{{ cmc_smtp_server }}::587' }
       - { option: 'dc_hide_mailname', value: 'true' }
-    when: cmc_configure_mail == true
+    when: cmc_smtp_server is defined
 
   - role: CMCuritiba.IaC.aaa
     cmc_aaa_ldap_server: "{{ cmc_ldap_server }}"
     cmc_aaa_ldap_dn: "{{ cmc_ldap_dn }}"
     cmc_aaa_ldap_binddn: "{{ cmc_ldap_binddn }}"
     cmc_aaa_ldap_bindpw: "{{ cmc_ldap_bindpw }}"
-    when: cmc_configure_ldap == true
+    when: cmc_ldap_server is defined

@@ -60,8 +60,8 @@ GPL-3.0-or-later
 
 ## Author Information
 
+<!-- An optional section for the role authors to include contact information, or a website (HTML is not allowed). -->
+
 [Divisão de Arquitetura de Serviços](mailto:arquitetura-ti@cmc.pr.gov.br)
 
 [Câmara Municipal de Curitiba](https://cmc.pr.gov.br)
-
-<!-- An optional section for the role authors to include contact information, or a website (HTML is not allowed). -->

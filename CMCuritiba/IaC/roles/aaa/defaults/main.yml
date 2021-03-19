@@ -1,5 +1,6 @@
 ---
-# defaults file for aaa
-cmc_aaa_ldap_server: "10.0.0.5"
-cmc_aaa_ldap_dn: "dc=pr,dc=gov,dc=br"
-cmc_aaa_ldap_binddn: "authproxy"
+# aaa role variables
+
+# cmc_aaa_ldap_server: "192.168.0.1"
+# cmc_aaa_ldap_dn: "dc=example,dc=com"
+# cmc_aaa_ldap_binddn: "binduser"

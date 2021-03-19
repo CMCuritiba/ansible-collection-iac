@@ -1,7 +1,7 @@
 ---
 # tasks file for servers
 - include: mail.yml
-  when: cmc_configure_mail == true
+  when: cmc_smtp_server is defined
 
 - name: Set hostname
   hostname:
@@ -68,13 +68,14 @@
     path: /etc/ssh/sshd_config
     regexp: "^AllowGroups +(?!suporte)"
     line: "AllowGroups suporte" # type: space separated LDAP groups string
-  when: cmc_configure_ldap != true
+  when: cmc_ldap_server is not defined
   notify:
     - restart ssh
 
 - name: Disable root SSH access
   lineinfile:
     path: /etc/ssh/sshd_config
+    # lookahead para substituir qualquer coisa diferente de 'no'
     regexp: "^PermitRootLogin +(?!no)"
     line: "PermitRootLogin no"
   notify:
