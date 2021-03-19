@@ -47,7 +47,7 @@ Exemplo de playbook:
 ---
 - hosts: foo-servers
   roles:
-    - role: CMCuritiba.IaC.aaa
+    - role: cmcuritiba.iac.aaa
       cmc_aaa_ldap_bindpw: mypassword
       cmc_aaa_ldap_server: "192.168.0.1"
       cmc_aaa_ldap_dn: "dc=example,dc=com"

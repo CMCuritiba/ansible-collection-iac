@@ -27,7 +27,7 @@ dependencies:
       - { option: 'dc_hide_mailname', value: 'true' }
     when: cmc_smtp_server is defined
 
-  - role: CMCuritiba.IaC.aaa
+  - role: cmcuritiba.iac.aaa
     cmc_aaa_ldap_server: "{{ cmc_ldap_server }}"
     cmc_aaa_ldap_dn: "{{ cmc_ldap_dn }}"
     cmc_aaa_ldap_binddn: "{{ cmc_ldap_binddn }}"

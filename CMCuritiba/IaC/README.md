@@ -1,4 +1,4 @@
-# Ansible Collection - CMCuritiba.IaC
+# Ansible Collection - cmcuritiba.iac
 
 Coleção de roles para configurar servidores debian para o ambiente produtivo da CMC.
 

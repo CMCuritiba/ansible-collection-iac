@@ -61,7 +61,7 @@ Exemplo de playbook:
 ---
 - hosts: foo-servers
   roles:
-    - role: CMCuritiba.IaC.servers
+    - role: cmcuritiba.iac.servers
       cmc_dtic_network: 192.168.0.0/24
       cmc_dtic_vpn_network: 192.168.1.0/24
       cmc_template_ip: '^192\.168\.0\.1'

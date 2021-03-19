@@ -1,4 +1,4 @@
-# Ansible Collection - CMCuritiba.IaC
+# Ansible Collection - cmcuritiba.iac
 
 Documentation for the collection.
 
@@ -9,24 +9,9 @@ This is still a work in progress.
 - Ansible 2.10.3 or higher
 - Python 3.8.5 or higher
 
-## Instructions for installing CMCuritiba.IaC
-
-- Optional: Create a python virtual environment and activate it before executing subsequent steps.
-
-1. Install the following packages (use the latest available version):
-   1. Ansible
-1. Install collection using ansible galaxy (**TODO**):
-   1. Example command to install:
-      `ansible-galaxy collection install CMCuritiba.IaC`
-   1. Example command to upgrade to the latest version:
-      `ansible-galaxy collection install CMCuritiba.IaC --force`
-1. Update existing playbooks to work with collection:
-   1. Rename all roles referenced inside playbooks to begin with CMCuritiba.IaC.
-   1. Remove all references to `cmc_server_hostname`. `cmc_server_hostname` was replaced with ansible's `inventory_hostname_short` special variable.
-1. Miscellaneous
-   1. Please submit a pull request on so we can merge your roles into the collection.
-
 ## Guia do ameba
+
+- Opcional: crie um virtual env python e ative-o para instalar o Ansible.
 
 1. Instalar o Ansible na máquina controladora. Sugestão, de acordo com [esta documentação](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-with-pip):
 
@@ -42,7 +27,7 @@ This is still a work in progress.
    ```
 
 1. Garanta o acesso do controlador ao _host_ (por exemplo, compartilhando chaves entre o controlador e os _hosts_)
-1. Instalar a _collection_ [CMCuritiba.IaC](https://github.com/CMCuritiba/ansible-cmc-servers).
+1. Instalar a _collection_ [cmcuritiba.iac](https://github.com/CMCuritiba/ansible-cmc-servers).
    As alternativas de instalação são:
    1. Faça o download do projeto como `.zip` e descompacte em `./collections/ansible_collections/` ou `~/.ansible/collections/ansible_collections/`
    1. Clone o projeto localmente em `./collections/ansible_collections/` ou `~/.ansible/collections/ansible_collections/`
@@ -83,3 +68,9 @@ This is still a work in progress.
    ansible-playbook -u nome.sobrenome -K playbook.yml
    ansible-playbook -u root playbook.yml
    ```
+
+1. Update existing playbooks to work with collection:
+   1. Rename all roles referenced inside playbooks to begin with cmcuritiba.iac.
+   1. Remove all references to `cmc_server_hostname`. `cmc_server_hostname` was replaced with ansible's `inventory_hostname_short` special variable.
+1. Miscellaneous
+   1. Please submit a pull request on so we can merge your roles into the collection.
