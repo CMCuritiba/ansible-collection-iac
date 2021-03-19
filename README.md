@@ -35,6 +35,12 @@ This is still a work in progress.
    sudo pip3 install ansible
    ```
 
+   Para atualizar o Ansible:
+
+   ```bash
+   sudo pip3 install --upgrade ansible
+   ```
+
 1. Garanta o acesso do controlador ao _host_ (por exemplo, compartilhando chaves entre o controlador e os _hosts_)
 1. Instalar a _collection_ [CMCuritiba.IaC](https://github.com/CMCuritiba/ansible-cmc-servers).
    As alternativas de instalação são:
@@ -43,9 +49,11 @@ This is still a work in progress.
    1. Utilizando o galaxy para baixar o código do repositório através de um `requirements.yml`:
 
       ```yml
-      - src: git+https://github.com/CMCuritiba/ansible-cmc-servers.git
-        version: issue17
-        name: CMCuritiba.IaC
+      ---
+      collections:
+        - name: https://github.com/CMCuritiba/ansible-cmc-servers.git#CMCuritiba/IaC/
+          type: git
+          version: issue17
       ```
 
       Instale com:
