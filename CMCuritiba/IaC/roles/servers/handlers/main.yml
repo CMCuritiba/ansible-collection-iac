@@ -1,13 +1,8 @@
 ---
-# handlers file for ansible-cmc-servers
+# handlers file for servers
 - name: restart ntp
   service:
     name: ntp
-    state: restarted
-
-- name: restart nslcd
-  service:
-    name: nslcd
     state: restarted
 
 - name: restart ssh

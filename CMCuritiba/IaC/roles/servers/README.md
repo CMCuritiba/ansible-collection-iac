@@ -1,4 +1,4 @@
-# ansible-cmc-servers
+# Servers
 
 Role para configurar servidores debian para o ambiente produtivo da CMC.
 
@@ -26,7 +26,6 @@ Descrição das variáveis que devem ser passadas para esta role.
 
 Obrigatórias:
 
-- `cmc_server_hostname`: nome do servidor (sem o domínio)
 - `cmc_dtic_network`: faixa de rede da DTIC (IPv4 address block)
 - `cmc_ntp_servers`: lista de servidores NTP (lista de FQDNs e endereços IPv4)
 - `cmc_ldap_bindpw`: senha para bind no LDAP (vide [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
@@ -50,7 +49,6 @@ Opcionais:
 Roles:
 
 - [ontic.exim](https://galaxy.ansible.com/ontic/exim)
-- [nss-pam-ldap-configure](https://galaxy.ansible.com/andrewrothstein/nss-pam-ldap-configure)
 
 <!-- A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles. -->
 
@@ -62,10 +60,9 @@ Exemplo de playbook:
 
 ```yaml
 ---
-- hosts: servidores
+- hosts: foo-servers
   roles:
-    - role: ansible-cmc-servers
-      cmc_server_hostname: foo-server
+    - role: CMCuritiba.IaC.servers
       cmc_dtic_network: 192.168.0.0/24
       cmc_dtic_vpn_network: 192.168.1.0/24
       cmc_template_ip: '^192\.168\.0\.1'
@@ -78,7 +75,7 @@ Exemplo de playbook:
 
 ## License
 
-BSD
+GPL-3.0-or-later
 
 ## Author Information
 

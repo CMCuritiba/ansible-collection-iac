@@ -1,0 +1,5 @@
+---
+# defaults file for aaa
+cmc_aaa_ldap_server: "10.0.0.5"
+cmc_aaa_ldap_dn: "dc=pr,dc=gov,dc=br"
+cmc_aaa_ldap_binddn: "authproxy"

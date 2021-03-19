@@ -6,6 +6,8 @@ Coleção de roles para configurar servidores debian para o ambiente produtivo d
 
 ### servers
 
+Configura servidores com pacotes básicos.
+
 Serviços inclusos:
 
 1. NTP
@@ -16,7 +18,7 @@ Serviços inclusos:
 
 ### aaa
 
-Configura AAA
+Configura AAA.
 
 Serviços inclusos:
 
@@ -33,7 +35,6 @@ Exemplo de playbook:
 - hosts: servidores
   roles:
     - role: ansible-cmc-servers
-      cmc_server_hostname: foo-server
       cmc_dtic_network: 192.168.0.0/24
       cmc_dtic_vpn_network: 192.168.1.0/24
       cmc_template_ip: '^192\.168\.0\.1'
@@ -50,7 +51,7 @@ Exemplo de playbook:
 
 ## License
 
-BSD
+GPL-3.0-or-later
 
 ## Author Information
 

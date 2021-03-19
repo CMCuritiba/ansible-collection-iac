@@ -1,0 +1,5 @@
+---
+# vars file for aaa
+cmc_aaa_ssh_user_groups: "dtic" # type: space separated LDAP groups string
+cmc_aaa_sudoers_groups:
+  - "dtic.arquitetura"

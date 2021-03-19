@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible-cmc-servers
+# defaults file for servers
 cmc_install_docker: false
 cmc_smtp_server: "smtp.cmc.pr.gov.br"
 cmc_ldap_server: "10.0.0.5"
