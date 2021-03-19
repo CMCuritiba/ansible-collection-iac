@@ -74,8 +74,9 @@ Este é um trabalho em curso.
    ansible-playbook -u root playbook.yml
    ```
 
-1. Update existing playbooks to work with collection:
-   1. Rename all roles referenced inside playbooks to begin with cmcuritiba.iac.
-   1. Remove all references to `cmc_server_hostname`. `cmc_server_hostname` was replaced with ansible's `inventory_hostname_short` special variable.
-1. Miscellaneous
+1. Atualize _playbooks_ existentes para funcionar com a coleção:
+   1. Renomeie todas as referencias à _role_ original nos _playbooks_ para iniciar com cmcuritiba.iac;
+   1. Remova todas as referencias a `cmc_server_hostname`. `cmc_server_hostname` foi substituída com a variável especial do ansible `inventory_hostname_short`;
+   1. Revise as variáveis obrigatórias e opcionais, em especial para LDAP e SMTP.
+1. Miscelânea
    1. Please submit a pull request on so we can merge your roles into the collection.
