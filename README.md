@@ -1,13 +1,18 @@
 # Ansible Collection - cmcuritiba.iac
 
-Documentation for the collection.
+Coleção de roles para configurar servidores debian para o ambiente produtivo da CMC.
 
-This is still a work in progress.
+Este é um trabalho em curso.
 
-## Requirements
+## Requisitos
 
-- Ansible 2.10.3 or higher
-- Python 3.8.5 or higher
+- Ansible 2.10.3 ou maior
+- Python 3.8.5 ou maior
+
+## Roles
+
+- [AAA](roles/aaa/README.md)
+- [servers](roles/servers/README.md)
 
 ## Guia do ameba
 
@@ -36,7 +41,7 @@ This is still a work in progress.
       ```yml
       ---
       collections:
-        - name: https://github.com/CMCuritiba/ansible-cmc-servers.git#CMCuritiba/IaC/
+        - name: https://github.com/CMCuritiba/ansible-cmc-servers.git
           type: git
           version: issue17
       ```
