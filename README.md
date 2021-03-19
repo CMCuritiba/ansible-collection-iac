@@ -36,14 +36,14 @@ Este é um trabalho em curso.
    As alternativas de instalação são:
    1. Faça o download do projeto como `.zip` e descompacte em `./collections/ansible_collections/` ou `~/.ansible/collections/ansible_collections/`
    1. Clone o projeto localmente em `./collections/ansible_collections/` ou `~/.ansible/collections/ansible_collections/`
-   1. Utilizando o galaxy para baixar o código do repositório através de um `requirements.yml`:
+   1. [Utilizando o galaxy](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) para baixar o código do repositório através de um `requirements.yml`:
 
       ```yml
       ---
       collections:
         - name: https://github.com/CMCuritiba/ansible-cmc-servers.git
           type: git
-          version: issue17
+          version: main
       ```
 
       Instale com:
