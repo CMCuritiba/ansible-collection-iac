@@ -1,0 +1,6 @@
+---
+# aaa role variables
+
+# cmc_aaa_ldap_server: "192.168.0.1"
+# cmc_aaa_ldap_dn: "dc=example,dc=com"
+# cmc_aaa_ldap_binddn: "binduser"

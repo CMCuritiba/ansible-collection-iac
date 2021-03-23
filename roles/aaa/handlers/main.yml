@@ -1,0 +1,11 @@
+---
+# handlers file for aaa
+- name: restart ssh
+  service:
+    name: sshd
+    state: restarted
+
+- name: restart nslcd
+  service:
+    name: nslcd
+    state: restarted

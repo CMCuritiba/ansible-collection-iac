@@ -1,0 +1,35 @@
+---
+# meta file for servers
+galaxy_info:
+  role_name: servers
+  author: Bruno S. Oliveira
+  company: "Câmara Municipal de Curitiba"
+  description: Set up a production server in Debian systems
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.10.1
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+  galaxy_tags:
+    - server
+    - system
+    - aaa
+    - mail
+    - docker
+dependencies:
+  - role: ontic.exim
+    exim_config:
+      - { option: 'dc_eximconfig_configtype', value: 'satellite' }
+      - { option: 'dc_other_hostnames', value: '{{ inventory_hostname_short }}.cmc.pr.gov.br' }
+      - { option: 'dc_smarthost', value: '{{ cmc_smtp_server }}::587' }
+      - { option: 'dc_hide_mailname', value: 'true' }
+    when: cmc_smtp_server is defined
+
+  - role: cmcuritiba.iac.aaa
+    cmc_aaa_ldap_server: "{{ cmc_ldap_server }}"
+    cmc_aaa_ldap_dn: "{{ cmc_ldap_dn }}"
+    cmc_aaa_ldap_binddn: "{{ cmc_ldap_binddn }}"
+    cmc_aaa_ldap_bindpw: "{{ cmc_ldap_bindpw }}"
+    when: cmc_ldap_server is defined

@@ -1,9 +1,26 @@
 ---
+# tasks file for aaa
+
+- name: Install required system packages
+  apt:
+    name:
+      - acct
+      - sudo
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Ensure empty sudo group
+  lineinfile:
+    path: "/etc/group"
+    regexp: "^sudo:x:27:.+"
+    line: "sudo:x:27:"
+
 - name: Restrict SSH user groups
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: "^AllowGroups"
-    line: "AllowGroups {{ cmc_ssh_user_groups }}" # type: space separated LDAP groups string
+    line: "AllowGroups {{ cmc_aaa_ssh_user_groups }}" # type: space separated LDAP groups string
   notify:
     - restart ssh
 
@@ -19,7 +36,7 @@
   lineinfile:
     path: /etc/pam.d/common-session
     state: present
-    insertbefore: "pam_unix\\.so"
+    insertbefore: 'pam_unix\.so'
     line: "session required pam_mkhomedir.so skel=/etc/skel/ umask=0022"
 
 - name: Configure sudo
