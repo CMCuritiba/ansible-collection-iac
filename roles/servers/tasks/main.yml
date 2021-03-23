@@ -1,11 +1,11 @@
 ---
-# tasks file for ansible-cmc-servers
+# tasks file for servers
 - include: mail.yml
-  when: cmc_configure_mail == true
+  when: cmc_smtp_server is defined
 
 - name: Set hostname
   hostname:
-    name: "{{ cmc_server_hostname | mandatory }}" # type: string
+    name: "{{ inventory_hostname_short | mandatory }}" # type: string
 
 - name: Configure resolv.conf domain
   lineinfile:
@@ -26,11 +26,19 @@
     regexp: "{{ cmc_template_ip }}" # type: regex string
   when: cmc_template_ip is defined
 
-- name: Ensure hosts is right
+- name: Ensure localhost in hosts is right
   lineinfile:
     path: /etc/hosts
     state: present
-    line: "{{ ansible_default_ipv4.address }} {{ cmc_server_hostname }}.cmc.pr.gov.br {{ cmc_server_hostname }}"
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.1.1	{{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
+
+- name: Ensure hostname in hosts is right
+  lineinfile:
+    path: /etc/hosts
+    state: present
+    regexp: '^{{ ansible_default_ipv4.address }}'
+    line: "{{ ansible_default_ipv4.address }}	{{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
 
 - name: Install required system packages
   apt:
@@ -45,7 +53,6 @@
       - parted
       - rsync
       - software-properties-common
-      - sudo
       - ufw
       - unattended-upgrades
       - vim
@@ -53,22 +60,23 @@
     update_cache: yes
     cache_valid_time: 86400
 
-- name: Ensure empty sudo group
-  lineinfile:
-    path: "/etc/group"
-    regexp: "^sudo:x:27:.+"
-    line: "sudo:x:27:"
-
-- include: ldap.yml
-  when: cmc_configure_ldap == true
-
 - include: docker.yml
   when: cmc_install_docker == true
+
+- name: Ensure SSH for local user
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^AllowGroups +(?!suporte)"
+    line: "AllowGroups suporte" # type: space separated LDAP groups string
+  when: cmc_ldap_server is not defined
+  notify:
+    - restart ssh
 
 - name: Disable root SSH access
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: "^PermitRootLogin *(?!no)"
+    # lookahead para substituir qualquer coisa diferente de 'no'
+    regexp: "^PermitRootLogin +(?!no)"
     line: "PermitRootLogin no"
   notify:
     - restart ssh

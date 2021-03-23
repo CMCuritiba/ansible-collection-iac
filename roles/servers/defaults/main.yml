@@ -1,0 +1,10 @@
+---
+# servers role variables
+
+# cmc_smtp_server: "smtp.example.com"
+# cmc_ldap_server: "192.168.0.1"
+# cmc_ldap_dn: "dc=example,dc=com"
+# cmc_ldap_binddn: "binduser"
+# cmc_template_ip: '^192\.168\.0\.254'
+
+cmc_install_docker: false

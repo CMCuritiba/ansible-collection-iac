@@ -3,6 +3,6 @@
 # Do NOT modify this file by hand!
 ################################################################################
 
-{% for sudo_group in cmc_sudoers_groups %}
+{% for sudo_group in cmc_aaa_sudoers_groups %}
 %{{ sudo_group }} ALL = ALL, !/usr/bin/su
 {% endfor %}
