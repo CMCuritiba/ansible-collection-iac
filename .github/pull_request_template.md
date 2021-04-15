@@ -15,6 +15,7 @@ See also: #
 - [ ] I covered my code with type-hints
 - [ ] I didn't hard code
 - [ ] I reviewed CHANGELOG/README
+- [ ] I bumped version numbers
 
 ## Resources
 

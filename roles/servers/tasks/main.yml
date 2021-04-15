@@ -63,36 +63,7 @@
 - include: docker.yml
   when: cmc_install_docker == true
 
-- name: Ensure SSH for local user
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: "^AllowGroups +(?!suporte)"
-    line: "AllowGroups suporte" # type: space separated LDAP groups string
-  when: cmc_ldap_server is not defined
-  notify:
-    - restart ssh
-
-- name: Disable root SSH access
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    # lookahead para substituir qualquer coisa diferente de 'no'
-    regexp: "^PermitRootLogin +(?!no)"
-    line: "PermitRootLogin no"
-  notify:
-    - restart ssh
-
-- name: Allow SSH on Firewall
-  ufw:
-    rule: allow
-    name: SSH
-    src: "{{ cmc_dtic_network | mandatory }}" # type: IPv4 address block
-
-- name: Allow SSH from VPN
-  ufw:
-    rule: allow
-    name: SSH
-    src: "{{ cmc_dtic_vpn_network }}" # type: IPv4 address block
-  when: cmc_dtic_vpn_network is defined
+- include: ssh.yml
 
 - name: Configure default Firewall rule
   ufw:
