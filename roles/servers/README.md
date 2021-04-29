@@ -34,7 +34,7 @@ Obrigatórias:
 Opcionais:
 
 - `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o _default_ é `false`
-- `cmc_enable_ssh_agent`: `boolean` indicando se o _agent forwarding_ deve ser habilitado, o _default_ é `false`
+- `cmc_enable_ssh_agent`: variável (valores `yes` ou `no`) indicando se o _ssh agent forwarding_ deve ser explicitamente configurado
 - `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
 - `cmc_smtp_server`: servidor SMTP (FQDN ou IPv4). **Importante**: se o servidor SMTP não for informado o envio de e-mails não será configurado.

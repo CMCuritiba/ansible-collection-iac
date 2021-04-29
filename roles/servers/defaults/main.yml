@@ -6,6 +6,6 @@
 # cmc_ldap_dn: "dc=example,dc=com"
 # cmc_ldap_binddn: "binduser"
 # cmc_template_ip: '^192\.168\.0\.254'
+# cmc_enable_ssh_agent: yes
 
 cmc_install_docker: false
-cmc_enable_ssh_agent: false

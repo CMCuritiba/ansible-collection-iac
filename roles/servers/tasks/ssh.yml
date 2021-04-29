@@ -22,7 +22,7 @@
     path: /etc/ssh/sshd_config
     # lookahead para substituir qualquer coisa diferente de 'no'
     regexp: "^AllowAgentForwarding +(?!no)"
-    line: "AllowAgentForwarding yes"
+    line: "AllowAgentForwarding {{ cmc_enable_ssh_agent }}"
   when: cmc_enable_ssh_agent is defined
   notify:
     - restart ssh
