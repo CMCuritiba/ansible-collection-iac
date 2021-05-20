@@ -1,0 +1,20 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Get LDAP servers (exemplo somente)
+    shell: /bin/grep "^uri" /etc/nslcd.conf
+    register: grep_servers
+
+  - name: Check LDAP servers (exemplo somente)
+    assert:
+      that:
+        - "'ldaps://ldap1.example.com/' in grep_servers.stdout"
+        - "'ldaps://ldap2.example.com/' in grep_servers.stdout"
+
+  - name: Debug results (exemplo somente)
+    debug:
+      var: grep_servers.stdout
