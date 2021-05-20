@@ -1,13 +1,4 @@
 ---
-- name: Ensure SSH root direct access is disabled
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    # lookahead para substituir qualquer coisa diferente do desejado
-    regexp: "^PermitRootLogin\\s+yes"
-    state: absent
-  notify:
-    - Restart sshd
-
 - name: Allow SSH agent forwarding
   lineinfile:
     path: /etc/ssh/sshd_config
