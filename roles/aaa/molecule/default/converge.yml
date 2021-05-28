@@ -1,0 +1,37 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Update apt cache.
+      package:
+        update_cache: true
+        cache_valid_time: 86400
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure build dependencies are installed (Debian).
+      package:
+        name:
+          - openssh-server
+          - openssh-client
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure auth.log file is present.
+      copy:
+        dest: /var/log/auth.log
+        content: ""
+        force: false
+        mode: 0644
+      when: ansible_distribution == 'Debian'
+
+  roles:
+    - role: aaa
+      # cmc_aaa_ldap_servers: ["ldap://192.168.0.1/"]
+      cmc_aaa_ldap_servers:
+        - "ldaps://ldap1.example.com/"
+        - "ldaps://ldap2.example.com/"
+      cmc_aaa_ldap_dn: "dc=example,dc=com"
+      cmc_aaa_ldap_binddn: "binduser"
+      cmc_aaa_ldap_bindpw: "bindpass"

@@ -6,7 +6,7 @@
     name:
       - acct
       - sudo
-    state: latest
+    state: present
     update_cache: yes
     cache_valid_time: 86400
 
@@ -16,27 +16,28 @@
     regexp: "^sudo:x:27:.+"
     line: "sudo:x:27:"
 
+- name: Disable root SSH direct access
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    # Se estiver com 'yes' substitui por 'without-password'
+    regexp: "^PermitRootLogin\\s+yes"
+    line: "PermitRootLogin without-password"
+  notify:
+    - Restart sshd
+
 - name: Restrict SSH user groups
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: "^AllowGroups"
     line: "AllowGroups {{ cmc_aaa_ssh_user_groups }}" # type: space separated LDAP groups string
   notify:
-    - restart ssh
-
-- name: Disable certificate checking
-  lineinfile:
-    path: /etc/nslcd.conf
-    state: present
-    line: "tls_reqcert never"
-  notify:
-    - restart nslcd
+    - Restart sshd
 
 - name: Create users home directory
   lineinfile:
     path: /etc/pam.d/common-session
     state: present
-    insertbefore: 'pam_unix\.so'
+    insertbefore: "pam_unix\\.so"
     line: "session required pam_mkhomedir.so skel=/etc/skel/ umask=0022"
 
 - name: Configure sudo

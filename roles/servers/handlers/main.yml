@@ -1,11 +1,11 @@
 ---
 # handlers file for servers
-- name: restart ntp
+- name: Restart ntp
   service:
     name: ntp
     state: restarted
 
-- name: restart ssh
+- name: Restart sshd
   service:
     name: sshd
     state: restarted

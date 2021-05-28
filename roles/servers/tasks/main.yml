@@ -31,14 +31,14 @@
     path: /etc/hosts
     state: present
     regexp: '^127\.0\.1\.1'
-    line: "127.0.1.1	{{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
+    line: "127.0.1.1 {{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
 
 - name: Ensure hostname in hosts is right
   lineinfile:
     path: /etc/hosts
     state: present
     regexp: '^{{ ansible_default_ipv4.address }}'
-    line: "{{ ansible_default_ipv4.address }}	{{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
+    line: "{{ ansible_default_ipv4.address }} {{ inventory_hostname_short }}.cmc.pr.gov.br {{ inventory_hostname_short }}"
 
 - name: Install required system packages
   apt:
@@ -56,7 +56,7 @@
       - ufw
       - unattended-upgrades
       - vim
-    state: latest
+    state: present
     update_cache: yes
     cache_valid_time: 86400
 
@@ -81,7 +81,7 @@
     backup: yes
   # when: cmc_ntp_servers is defined # type: FQDN and IPv4 address list
   notify:
-    - restart ntp
+    - Restart ntp
 
 - name: Configure unattended-upgrades steps
   lineinfile:

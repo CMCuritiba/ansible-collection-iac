@@ -1,31 +1,13 @@
 ---
-- name: Ensure SSH for local user
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: "^AllowGroups +(?!suporte)"
-    line: "AllowGroups suporte" # type: space separated LDAP groups string
-  when: cmc_ldap_server is not defined
-  notify:
-    - restart ssh
-
-- name: Disable root SSH access
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    # lookahead para substituir qualquer coisa diferente de 'no'
-    regexp: "^PermitRootLogin +(?!no)"
-    line: "PermitRootLogin no"
-  notify:
-    - restart ssh
-
 - name: Allow SSH agent forwarding
   lineinfile:
     path: /etc/ssh/sshd_config
     # lookahead para substituir qualquer coisa diferente de 'no'
-    regexp: "^AllowAgentForwarding +(?!no)"
+    regexp: "^AllowAgentForwarding\\s+(?!no)"
     line: "AllowAgentForwarding {{ cmc_enable_ssh_agent }}"
   when: cmc_enable_ssh_agent is defined
   notify:
-    - restart ssh
+    - Restart sshd
 
 - name: Allow SSH on Firewall
   ufw:
