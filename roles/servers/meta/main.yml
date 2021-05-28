@@ -2,7 +2,7 @@
 # meta file for servers
 galaxy_info:
   role_name: servers
-  namespace: cmcuritiba
+  namespace: cmcuritiba.iac
   author: Bruno S. Oliveira
   company: "Câmara Municipal de Curitiba"
   description: Set up a production server in Debian systems
@@ -28,7 +28,7 @@ dependencies:
       - { option: 'dc_hide_mailname', value: 'true' }
     when: cmc_smtp_server is defined
 
-  - role: cmcuritiba.iac.aaa
+  - role: aaa
     cmc_aaa_ldap_servers: "{{ cmc_ldap_servers }}"
     cmc_aaa_ldap_dn: "{{ cmc_ldap_dn }}"
     cmc_aaa_ldap_binddn: "{{ cmc_ldap_binddn }}"

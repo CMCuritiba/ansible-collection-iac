@@ -3,20 +3,6 @@
   hosts: all
   become: true
 
-  # pre_tasks:
-  #   - name: Update apt cache
-  #     package:
-  #       update_cache: true
-  #       cache_valid_time: 86400
-  #     when: ansible_os_family == 'Debian'
-
-  #   - name: Ensure build dependencies are installed (Debian)
-  #     package:
-  #       name:
-  #         - exim4
-  #       state: present
-  #     when: ansible_os_family == 'Debian'
-
   roles:
     - role: servers
       cmc_dtic_network: 192.168.0.0/24
@@ -26,8 +12,8 @@
       cmc_ntp_servers:
         - 192.168.0.4
         - a.ntp.br
-      cmc_ldap_servers: ["ldap://192.168.0.1/"]
-      cmc_ldap_dn: "dc=example,dc=com"
-      cmc_ldap_binddn: "binduser"
-      cmc_ldap_bindpw: senha
-      cmc_install_docker: false
+      # cmc_ldap_servers: ["ldap://192.168.0.1/"]
+      # cmc_ldap_dn: "dc=example,dc=com"
+      # cmc_ldap_binddn: "binduser"
+      # cmc_ldap_bindpw: senha
+      # cmc_install_docker: false
