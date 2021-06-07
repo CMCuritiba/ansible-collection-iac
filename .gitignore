@@ -1,0 +1,26 @@
+# VS Code
+.vscode/
+
+# Logs
+logs/
+log/
+*.log.*
+*.log
+
+# dotenv environment variables file
+.env
+
+# lock files
+*.lock
+
+# certificates
+*.cert
+*.key
+*.crt
+*.pem
+
+# vault files
+*.vault
+
+# cache
+.cache/

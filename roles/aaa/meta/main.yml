@@ -1,4 +1,6 @@
 galaxy_info:
+  role_name: aaa
+  namespace: cmcuritiba
   author: Bruno S. Oliveira
   description: Set up AAA in Debian systems
   company: Câmara Municipal de Curitiba
@@ -51,19 +53,20 @@ galaxy_info:
     #
     # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
     #       Maximum 20 tags per role.
-  - ldap
-  - sudo
-  - aaa
+    - ldap
+    - sudo
+    - aaa
 
 dependencies:
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
 
   - role: andrewrothstein.nss-pam-ldap-configure
-    nss_pam_ldap_uri: ["ldaps://{{ cmc_aaa_ldap_server }}/"] # type: IPv4, hostname or FQDN string
+    nss_pam_ldap_uri: "{{ cmc_aaa_ldap_servers }}" # type: array of ldap connections (IPv4, hostname or FQDN string)
     nss_pam_ldap_dn: "{{ cmc_aaa_ldap_dn }}"
     nss_pam_ldap_binddn: "cn={{ cmc_aaa_ldap_binddn }},{{ nss_pam_ldap_dn }}" # type: username string
     nss_pam_ldap_bindpw: "{{ cmc_aaa_ldap_bindpw }}" # type: password string
+    nss_pam_ldap_tls_reqcert: "never" # type: string (never|allow|try|demand|hard)
     nss_pam_ldap_custom_lookups:
       - db: base
         ty: passwd

@@ -80,3 +80,35 @@ Este é um trabalho em curso.
    1. Revise as variáveis obrigatórias e opcionais, em especial para LDAP e SMTP.
 1. Miscelânea
    1. Please submit a pull request on so we can merge your roles into the collection.
+
+## Testing
+
+1. Instale o molecule:
+
+   ```shell
+   python3 -m venv molecule-venv
+   source molecule-venv/bin/activate
+   (molecule-venv) $ pip install "molecule[ansible]"
+   (molecule-venv) $ pip install "molecule[podman,lint]"
+   ```
+
+1. Para fazer o _lint_ do código:
+
+   ```shell
+   (molecule-venv) $ cd roles/aaa
+   (molecule-venv) $ molecule lint
+   ```
+
+1. Teste o playbook nos containeres (configurados em
+   `molecule/default/molecule.yml`):
+
+   ```shell
+   (molecule-venv) $ cd roles/aaa
+   (molecule-venv) $ molecule test
+   ```
+
+### References
+
+- Developing and Testing Ansible Roles with Molecule and Podman:
+  - [Parte 1](https://www.ansible.com/blog/developing-and-testing-ansible-roles-with-molecule-and-podman-part-1)
+  - [Parte 2](https://www.ansible.com/blog/developing-and-testing-ansible-roles-with-molecule-and-podman-part-2)
