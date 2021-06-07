@@ -1,14 +1,19 @@
 # This is a basic workflow to help you get started with Actions
 
+# Referência:
+# https://betterprogramming.pub/how-to-version-your-code-in-2020-60bdd221278b
+
 name: Bump version
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
+#   pull_request:
+#     branches:
+#       - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,7 +28,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Vide: https://github.com/actions/checkout/issues/317#issuecomment-737107262
       - uses: actions/checkout@v2
+#         with:
+#           ref: ${{ github.event.pull_request.head.ref }}
 
       # Runs a set of commands using the runners shell
       - name: Bump version
@@ -34,7 +42,7 @@ jobs:
           wget -O - https://raw.githubusercontent.com/treeder/bump/master/gitbump.sh | bash
 
           # Get the latest version from GitHub tags
-          VERSION=$(git tag --sort=-refname --list "v[0-9]*" | head -n 1)
+          VERSION=$(git tag --sort=-v:refname --list "v[0-9]*" | head -n 1 | cut -c 2-)
           echo "new version $VERSION"
 
           # Update the version in galaxy.yml
