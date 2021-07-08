@@ -39,16 +39,24 @@ Obrigatórias:
 
 Opcionais:
 
-- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o _default_ é `false`
-- `cmc_enable_ssh_agent`: variável (valores `yes` ou `no`) indicando se o _ssh agent forwarding_ deve ser explicitamente configurado
-- `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address block)
+- `cmc_install_docker`: `boolean` indicando se o docker deve ser instalado, o
+  _default_ é `false`
+- `cmc_enable_ssh_agent`: variável (valores `"yes"` ou `"no"`) indicando se o
+  _ssh agent forwarding_ deve ser explicitamente configurado
+- `cmc_dtic_vpn_network`: faixa de rede de acesso VPN da DTIC (IPv4 address
+  block)
 - `cmc_template_ip`: _regex_ com o IP de template dos servidores
-- `cmc_smtp_server`: servidor SMTP (FQDN ou IPv4). **Importante**: se o servidor SMTP não for informado o envio de e-mails não será configurado.
-- `cmc_ldap_servers`: _array_ de servidores LDAP (hostname, FQDN ou IPv4). **Importante**: se um servidor LDAP não for informado a autenticação via LDAP não será configurada.  
-  Caso o servidor LDAP seja informado, as seguinte variáveis adicionais serão necessárias:
+- `cmc_smtp_server`: servidor SMTP (FQDN ou IPv4). **Importante**: se o servidor
+  SMTP não for informado o envio de e-mails não será configurado.
+- `cmc_ldap_servers`: _array_ de servidores LDAP (hostname, FQDN ou IPv4).
+  **Importante**: se um servidor LDAP não for informado a autenticação via LDAP
+  não será configurada.  
+  Caso o servidor LDAP seja informado, as seguinte variáveis adicionais serão
+  necessárias:
   - `cmc_ldap_dn`: raiz da árvore de diretórios
   - `cmc_ldap_binddn`: usuário para bind no LDAP
-  - `cmc_ldap_bindpw`: senha para bind no LDAP (vide [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
+  - `cmc_ldap_bindpw`: senha para bind no LDAP (vide
+    [_vault_](https://docs.ansible.com/ansible/latest/user_guide/vault.html))
 
 ## Dependencies
 
