@@ -11,12 +11,6 @@
     state: present
     line: "root: admin"
 
-- name: Configure mail domain
-  lineinfile:
-    path: /etc/mailname
-    state: present
-    line: "cmc.pr.gov.br"
-
 - name: Configure system's email address
   lineinfile:
     path: /etc/email-addresses
