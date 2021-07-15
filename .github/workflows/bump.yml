@@ -41,9 +41,9 @@ jobs:
           git fetch --tags
           wget -O - https://raw.githubusercontent.com/treeder/bump/master/gitbump.sh | bash
 
-          # Get the latest version from GitHub tags
-          VERSION=$(git tag --sort=-v:refname --list "v[0-9]*" | head -n 1 | cut -c 2-)
-          echo "new version $VERSION"
+          # # Get the latest version from GitHub tags
+          # VERSION=$(git tag --sort=-v:refname --list "v[0-9]*" | head -n 1 | cut -c 2-)
+          # echo "new version $VERSION"
 
-          # Update the version in galaxy.yml
-          docker run --rm -v "$PWD":/app treeder/bump --filename galaxy.yml --replace "$VERSION"
+          # # Update the version in galaxy.yml
+          # docker run --rm -v "$PWD":/app treeder/bump --filename galaxy.yml --replace "$VERSION"
