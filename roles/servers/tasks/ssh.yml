@@ -1,4 +1,11 @@
 ---
+- name: Verifica variável SSH agent
+  assert:
+    that:
+      - cmc_enable_ssh_agent == 'yes' or cmc_enable_ssh_agent == 'no'
+    fail_msg: "'cmc_enable_ssh_agent' deve assumir os valores 'yes' ou 'no'"
+  when: cmc_enable_ssh_agent is defined
+
 - name: Allow SSH agent forwarding
   lineinfile:
     path: /etc/ssh/sshd_config

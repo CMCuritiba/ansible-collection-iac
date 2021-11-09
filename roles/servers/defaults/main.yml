@@ -1,11 +1,12 @@
 ---
 # servers role variables
 
-# cmc_smtp_server: "smtp.example.com"
-# cmc_ldap_servers: ["ldap://192.168.0.1/"]
-# cmc_ldap_dn: "dc=example,dc=com"
-# cmc_ldap_binddn: "binduser"
-# cmc_template_ip: '^192\.168\.0\.254'
-# cmc_enable_ssh_agent: yes
+# cmc_smtp_server: "smtp.example.com" # type: string (FQDN)
+# cmc_ldap_servers: ["ldap://192.168.0.1/"] # type: string array (URL)
+# cmc_ldap_dn: "dc=example,dc=com" # type: string (LDAP DC)
+# cmc_ldap_binddn: "binduser" # type: boolean (username)
+# cmc_ldap_bindpw: "bindpw" # type: boolean (password)
+# cmc_template_ip: '^192\.168\.0\.254' # type: boolean (true | false)
+# cmc_enable_ssh_agent: "yes" # type: string ("yes" | "no")
 
-cmc_install_docker: false
+cmc_install_docker: false # type: boolean (true | false)
