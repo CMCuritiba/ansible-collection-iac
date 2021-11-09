@@ -39,11 +39,14 @@ jobs:
           git config --global user.email "github+actions@gmail.com"
           git config --global user.name "Github Action"
           git fetch --tags
+
+          # Get the latest version from GitHub tags
+          OLD_VERSION=$(git tag --sort=-v:refname --list "v[0-9]*" | head -n 1 | cut -c 2-)
+          NEW_VERSION=$(docker run --rm -v "$PWD":/app treeder/bump --input "$OLD_VERSION" patch)
+          echo "New version: $NEW_VERSION"
+
+          # Bump version in galaxy.yml
+          docker run --rm -v "$PWD":/app treeder/bump --filename galaxy.yml --replace "$NEW_VERSION"
+
+          # Push new version
           wget -O - https://raw.githubusercontent.com/treeder/bump/master/gitbump.sh | bash
-
-          # # Get the latest version from GitHub tags
-          # VERSION=$(git tag --sort=-v:refname --list "v[0-9]*" | head -n 1 | cut -c 2-)
-          # echo "new version $VERSION"
-
-          # # Update the version in galaxy.yml
-          # docker run --rm -v "$PWD":/app treeder/bump --filename galaxy.yml --replace "$VERSION"
